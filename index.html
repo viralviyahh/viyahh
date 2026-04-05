@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral Viyahh | Premium Wedding Planners</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Montserrat', 'sans-serif'], 
+                        serif: ['Cinzel', 'serif'], 
+                        accent: ['Playfair Display', 'serif'] 
+                    },
+                    colors: { 
+                        brand: { 
+                            maroon: '#7B1113', 
+                            gold: '#DCA842', 
+                            cream: '#FDFBF7' 
+                        } 
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-bg { 
+            background-image: linear-gradient(rgba(123, 17, 19, 0.5), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=80'); 
+            background-size: cover; background-position: center; background-attachment: fixed; 
+        }
+        .gold-text { 
+            background: linear-gradient(to right, #DCA842, #f2d288, #DCA842); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+        }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); } }
+        .wa-float { animation: pulse 2s infinite; }
+                .logo-breakout {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0.5rem;
+            z-index: 100;
+        }
+
+        .nav-slim {
+            height: 70px;
+        }
+    </style>
+</head>
+<body class="bg-brand-cream font-sans text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 shadow-sm border-b border-brand-gold/20 nav-slim flex items-center px-8">
+        
+        <div class="logo-breakout">
+            <a href="#home">
+                <img src="1000852021.png" alt="Viral Vyahh Logo" class="h-28 md:h-60 w-auto object-contain transition-transform hover:scale-105 duration-300">
+            </a>
+        </div>
+        
+        <div class="ml-auto hidden md:flex space-x-8 uppercase text-[11px] font-bold tracking-[0.2em] items-center">
+            <a href="#home" class="hover:text-brand-gold transition-colors">Home</a>
+            <a href="#featured" class="hover:text-brand-gold transition-colors">Our Work</a>
+            <a href="#services" class="hover:text-brand-gold transition-colors">Services</a>
+            <a href="#instagram" class="hover:text-brand-gold transition-colors">Instagram</a>
+            <a href="#contact" class="bg-brand-maroon text-brand-gold px-6 py-2 border border-brand-gold hover:bg-black transition-all shadow-md">Contact</a>
+        </div>
+    </nav>
+    <!-- Hero -->
+    <section id="home" class="hero-bg h-screen flex items-center justify-center text-center">
+        <div class="reveal px-4">
+            <i class="ph-fill ph-lotus text-brand-gold text-6xl mb-4"></i>
+            <h1 class="text-5xl md:text-7xl font-serif text-white mb-6">Begin Your Forever With <br/><span class="gold-text italic font-accent">Viral Viyahh</span></h1>
+            <p class="text-white text-xl font-light mb-10 tracking-widest uppercase">Curating Royal Experiences Globally</p>
+            <a href="#contact" class="bg-brand-maroon text-brand-gold border border-brand-gold px-10 py-4 uppercase font-bold tracking-widest hover:bg-white hover:text-brand-maroon transition-all shadow-xl">Enquire Now</a>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section id="featured" class="py-24 bg-white px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-center font-serif text-4xl mb-20 text-brand-maroon uppercase tracking-widest">Featured Vyahhs</h2>
+            
+            <div class="grid md:grid-cols-2 gap-16 items-center mb-24 reveal">
+                <div class="relative overflow-hidden shadow-2xl border-4 border-brand-gold/10 rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800" class="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="space-y-4">
+                    <span class="text-brand-gold font-bold uppercase text-xs tracking-widest">Udaipur, Rajasthan</span>
+                    <h3 class="text-3xl font-serif text-brand-maroon">A Royal Symphony</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">A grand 5-day palace buyout transformed into a floral masterpiece, blending deep heritage with contemporary luxury.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-16 items-center flex-row-reverse reveal">
+                <div class="md:order-2 relative overflow-hidden shadow-2xl border-4 border-brand-gold/10 rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1541250848049-b4f7141dca3f?auto=format&fit=crop&w=800" class="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="md:text-right space-y-4">
+                    <span class="text-brand-gold font-bold uppercase text-xs tracking-widest">Goa, India</span>
+                    <h3 class="text-3xl font-serif text-brand-maroon">Oceanfront Vows</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">Intimate and breezy sunset celebrations designed for the modern couple who loves the sound of the ocean.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-brand-cream border-y border-brand-gold/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-center font-serif text-4xl mb-16 text-brand-maroon uppercase tracking-widest">Our Services</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full">
+                        <i class="ph ph-crown text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-4 text-brand-maroon">Full Planning</h4>
+                    <p class="text-sm text-gray-600">From venue buyouts to guest logistics, we manage every detail while you enjoy your moment.</p>
+                </div>
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full">
+                        <i class="ph ph-flower-lotus text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-4 text-brand-maroon">Creative Decor</h4>
+                    <p class="text-sm text-gray-600">We don't just decorate; we curate visual stories that reflect your unique personality and style.</p>
+                </div>
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full">
+                        <i class="ph ph-users-three text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-4 text-brand-maroon">Guest Experience</h4>
+                    <p class="text-sm text-gray-600">Managing travel, RSVPs, and hospitality to ensure your guests are treated with royal care.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Section -->
+    <!-- Instagram Section with your specific code -->
+    <section id="instagram" class="py-24 bg-brand-cream">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12 reveal">
+                <h2 class="font-serif text-4xl text-brand-maroon uppercase tracking-widest">Instagram</h2>
+                <p class="text-brand-gold font-bold mt-2 tracking-widest">@viral.vyahh</p>
+            </div>
+
+            <!-- YOUR SPECIFIC PIECE OF CODE INTEGRATED AND STYLED -->
+            <div class="insta-embed-card reveal">
+                <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px;">
+                    
+                    <!-- The Embed Column -->
+                    <div class="overflow-hidden border border-gray-100 rounded-sm">
+                        <iframe src="https://www.instagram.com/viral.viyahh/embed" width="100%" height="450" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center reveal">
+                <a href="https://instagram.com/viral.viyahh" target="_blank" class="text-brand-maroon border-b-2 border-brand-gold pb-1 font-bold uppercase tracking-widest text-sm hover:text-brand-gold transition-colors">
+                    Visit our full profile
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24 bg-brand-maroon text-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <h2 class="text-4xl md:text-5xl font-serif text-brand-gold mb-6 uppercase tracking-widest">Let's Talk.</h2>
+                <p class="mb-8 font-light italic text-xl">Creating Viral Viyahh, one celebration at a time.</p>
+                <div class="space-y-6">
+                    <p class="flex items-center gap-3"><i class="ph-fill ph-envelope-simple text-brand-gold text-2xl"></i> viralviyahh@gmail.com</p>
+                    <p class="flex items-center gap-3"><i class="ph-fill ph-phone-call text-brand-gold text-2xl"></i> +91 9893015485</p>
+                </div>
+            </div>
+            <div class="bg-brand-cream p-8 text-gray-900 border-t-8 border-brand-gold reveal shadow-2xl">
+                <form action="#" class="space-y-4">
+                    <input type="text" placeholder="Name" class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon">
+                    <input type="tel" placeholder="WhatsApp Number" class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon">
+                    <textarea placeholder="Tell us your vision..." class="w-full p-4 border border-gray-200 h-32 outline-none focus:border-brand-maroon"></textarea>
+                    <button class="w-full bg-brand-maroon text-brand-gold font-bold py-4 uppercase tracking-widest hover:bg-black transition-colors">Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/9893015485" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-5 rounded-full wa-float shadow-2xl z-50">
+        <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
+    </a>
+
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>
