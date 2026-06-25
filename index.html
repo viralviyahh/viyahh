@@ -819,58 +819,32 @@
                 </div>
             </div>
             <div class="bg-brand-cream p-8 text-gray-900 border-t-8 border-brand-gold reveal shadow-2xl">
-                <form id="inquiryForm" class="space-y-4">
-    <input type="text" id="formName" placeholder="Name" 
-        class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon" required>
-    <input type="tel" id="formPhone" placeholder="WhatsApp Number" 
-        class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon" required>
-    <textarea id="formMessage" placeholder="Tell us your vision..." 
-        class="w-full p-4 border border-gray-200 h-32 outline-none focus:border-brand-maroon"></textarea>
-    
-    <button type="submit" id="submitBtn" 
-        class="w-full bg-brand-maroon text-brand-gold font-bold py-4 uppercase tracking-widest hover:bg-black transition-colors">
-        Send Inquiry
-    </button>
+                <form action="#" class="space-y-4">
+                    <input type="text" placeholder="Name" class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon">
+                    <input type="tel" placeholder="WhatsApp Number" class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon">
+                    <textarea placeholder="Tell us your vision..." class="w-full p-4 border border-gray-200 h-32 outline-none focus:border-brand-maroon"></textarea>
+                    <button class="w-full bg-brand-maroon text-brand-gold font-bold py-4 uppercase tracking-widest hover:bg-black transition-colors">Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-    <!-- Success Message (hidden by default) -->
-    <div id="successMsg" class="hidden text-center py-4">
-        <p class="text-green-700 font-bold text-lg">✓ Inquiry Sent!</p>
-        <p class="text-gray-600 text-sm mt-1">We'll reach out on WhatsApp shortly.</p>
-    </div>
-</form>
+    <!-- WhatsApp -->
+    <a href="https://wa.me/9893015485" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-5 rounded-full wa-float shadow-2xl z-50">
+        <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
+    </a>
 
-<script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby43jPyO5irVA19DUXXlm87fC8xDTIcyJ_FVHx-GouOkL-uXtLI5OSkR0AENyKAW2it/exec';
-
-  document.getElementById('inquiryForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const btn = document.getElementById('submitBtn');
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-
-    const payload = {
-      name:    document.getElementById('formName').value,
-      phone:   document.getElementById('formPhone').value,
-      message: document.getElementById('formMessage').value
-    };
-
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify(payload)
-    })
-    .then(() => {
-      document.getElementById('inquiryForm').reset();
-      document.getElementById('successMsg').classList.remove('hidden');
-      btn.textContent = 'Send Inquiry';
-      btn.disabled = false;
-    })
-    .catch(() => {
-      alert('Something went wrong. Please WhatsApp us directly.');
-      btn.textContent = 'Send Inquiry';
-      btn.disabled = false;
-    });
-  });
-</script>
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
 </body>
 </html>
