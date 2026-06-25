@@ -212,8 +212,7 @@
 
         </div>
         <!-- End Grid -->
-
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -222,13 +221,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     body {
       font-family: 'Inter', sans-serif;
       background: #faf9f7;
       color: #2c2c2a;
     }
- 
+
     /* ── Header ── */
     .page-header {
       text-align: center;
@@ -236,7 +235,7 @@
       border-bottom: 0.5px solid #e0ddd8;
       margin-bottom: 2.5rem;
     }
- 
+
     .page-header .eyebrow {
       font-size: 11px;
       letter-spacing: 0.2em;
@@ -244,7 +243,7 @@
       color: #888;
       margin-bottom: 12px;
     }
- 
+
     .page-header h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 3rem;
@@ -253,7 +252,7 @@
       letter-spacing: 0.02em;
       margin-bottom: 1rem;
     }
- 
+
     .divider {
       display: flex;
       align-items: center;
@@ -261,19 +260,19 @@
       max-width: 280px;
       margin: 0 auto;
     }
- 
+
     .divider::before, .divider::after {
       content: '';
       flex: 1;
       height: 0.5px;
       background: #c8c4be;
     }
- 
+
     .divider span {
       color: #c8a98a;
       font-size: 18px;
     }
- 
+
     /* ── Filters ── */
     .filters {
       display: flex;
@@ -282,7 +281,7 @@
       justify-content: center;
       padding: 0 1rem 2rem;
     }
- 
+
     .filters button {
       font-family: 'Inter', sans-serif;
       font-size: 11px;
@@ -296,39 +295,39 @@
       cursor: pointer;
       transition: all 0.2s;
     }
- 
+
     .filters button:hover {
       border-color: #888;
       color: #444;
     }
- 
+
     .filters button.active {
       background: #2c2c2a;
       color: #faf9f7;
       border-color: #2c2c2a;
     }
- 
+
     /* ── Masonry gallery ── */
     .gallery-wrap {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 1rem 3rem;
     }
- 
+
     .gallery-grid {
       columns: 3;
       column-gap: 12px;
     }
- 
+
     @media (max-width: 768px) {
       .gallery-grid { columns: 2; }
     }
- 
+
     @media (max-width: 480px) {
       .gallery-grid { columns: 1; }
       .page-header h1 { font-size: 2.2rem; }
     }
- 
+
     .g-item {
       break-inside: avoid;
       margin-bottom: 12px;
@@ -337,17 +336,17 @@
       border-radius: 8px;
       cursor: pointer;
     }
- 
+
     .g-item img {
       width: 100%;
       display: block;
       transition: transform 0.4s ease;
     }
- 
+
     .g-item:hover img {
       transform: scale(1.04);
     }
- 
+
     .g-overlay {
       position: absolute;
       inset: 0;
@@ -359,12 +358,12 @@
       opacity: 0;
       transition: opacity 0.3s ease, background 0.3s ease;
     }
- 
+
     .g-item:hover .g-overlay {
       opacity: 1;
       background: rgba(30,25,20,0.5);
     }
- 
+
     .g-badge {
       display: inline-block;
       font-size: 9px;
@@ -377,19 +376,19 @@
       margin-bottom: 6px;
       width: fit-content;
     }
- 
+
     .g-name {
       color: #fff;
       font-size: 13px;
       font-weight: 500;
     }
- 
+
     .g-meta {
       color: rgba(255,255,255,0.65);
       font-size: 11px;
       margin-top: 3px;
     }
- 
+
     /* ── Lightbox ── */
     #lightbox {
       display: none;
@@ -401,9 +400,9 @@
       justify-content: center;
       padding: 20px;
     }
- 
+
     #lightbox.open { display: flex; }
- 
+
     .lb-inner {
       display: flex;
       background: #faf9f7;
@@ -413,19 +412,19 @@
       width: 100%;
       max-height: 90vh;
     }
- 
+
     .lb-img-side {
       flex: 0 0 58%;
       position: relative;
     }
- 
+
     .lb-img-side img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
- 
+
     .lb-nav-btn {
       position: absolute;
       top: 50%;
@@ -443,11 +442,11 @@
       color: #333;
       transition: background 0.2s;
     }
- 
+
     .lb-nav-btn:hover { background: #fff; }
     .lb-prev { left: 12px; }
     .lb-next { right: 12px; }
- 
+
     .lb-info-side {
       flex: 1;
       padding: 2rem 1.5rem;
@@ -455,7 +454,7 @@
       flex-direction: column;
       overflow-y: auto;
     }
- 
+
     .lb-close {
       align-self: flex-end;
       background: none;
@@ -466,9 +465,9 @@
       margin-bottom: 1rem;
       line-height: 1;
     }
- 
+
     .lb-close:hover { color: #333; }
- 
+
     .lb-event-badge {
       display: inline-block;
       font-size: 10px;
@@ -481,7 +480,7 @@
       margin-bottom: 14px;
       width: fit-content;
     }
- 
+
     .lb-event-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.5rem;
@@ -490,7 +489,7 @@
       line-height: 1.25;
       margin-bottom: 1rem;
     }
- 
+
     .lb-detail {
       display: flex;
       align-items: flex-start;
@@ -499,14 +498,14 @@
       color: #888;
       margin-bottom: 8px;
     }
- 
+
     .lb-detail svg {
       width: 14px;
       height: 14px;
       flex-shrink: 0;
       margin-top: 1px;
     }
- 
+
     .lb-desc {
       font-size: 13px;
       color: #555;
@@ -515,14 +514,14 @@
       padding-top: 1rem;
       border-top: 0.5px solid #e8e4df;
     }
- 
+
     .lb-counter {
       margin-top: auto;
       padding-top: 1.5rem;
       font-size: 11px;
       color: #bbb;
     }
- 
+
     @media (max-width: 640px) {
       .lb-inner { flex-direction: column; max-height: 95vh; }
       .lb-img-side { flex: 0 0 240px; }
@@ -530,13 +529,13 @@
   </style>
 </head>
 <body>
- 
+
   <header class="page-header">
     <p class="eyebrow">Our portfolio</p>
     <h1>Moments we've crafted</h1>
     <div class="divider"><span>&#10022;</span></div>
   </header>
- 
+
   <div class="filters">
     <button class="active" onclick="filter('all',this)">All events</button>
     <button onclick="filter('ceremony',this)">Ceremony</button>
@@ -544,11 +543,11 @@
     <button onclick="filter('decor',this)">Decor &amp; florals</button>
     <button onclick="filter('couple',this)">Couple portraits</button>
   </div>
- 
+
   <main class="gallery-wrap">
     <div class="gallery-grid" id="grid"></div>
   </main>
- 
+
   <!-- Lightbox -->
   <div id="lightbox" role="dialog" aria-label="Photo viewer">
     <div class="lb-inner">
@@ -574,7 +573,7 @@
       </div>
     </div>
   </div>
- 
+
   <script>
     // =====================================================
     // ADD YOUR EVENT PHOTOS HERE
@@ -582,7 +581,7 @@
     // name     → couple names or event title
     // date     → month & year
     // venue    → venue name
-    // cat      → ceremony | reception | decor | couple
+    // cat      → ceremony | reception | sangeet | artist
     // desc     → short story about the event
     // =====================================================
     const events = [
@@ -596,7 +595,23 @@
         desc:  "Add a short story about this event here."
       },
       {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb3620ac06b71208f373ef.jpg?updatedAt=1782380810120",
+        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/6a043ad028a3a409b1fb9edb.jpg?updatedAt=1782380819324",
+        name:  "Event 2 — add couple name here",
+        date:  "Month Year",
+        venue: "Venue name, City",
+        cat:   "reception",
+        desc:  "Add a short story about this event here."
+      },
+       {
+        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b5c5cae026f000e3f9ff4.jpg?updatedAt=1782380798047",
+        name:  "Event 2 — add couple name here",
+        date:  "Month Year",
+        venue: "Venue name, City",
+        cat:   "reception",
+        desc:  "Add a short story about this event here."
+      },
+       {
+        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b5c579d50c1aad68751bb.jpg?updatedAt=1782380810597",
         name:  "Event 2 — add couple name here",
         date:  "Month Year",
         venue: "Venue name, City",
@@ -604,19 +619,19 @@
         desc:  "Add a short story about this event here."
       },
       {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb35facddc4f945b6a5638.jpg?updatedAt=1782380811341",
+        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fc78b8617e1d6ca26f5ba0.jpg?updatedAt=1782380700711",
         name:  "Event 3 — add couple name here",
         date:  "Month Year",
         venue: "Venue name, City",
-        cat:   "decor",
+        cat:   "sangeet",
         desc:  "Add a short story about this event here."
       },
       {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b5c579d50c1aad68751bb.jpg?updatedAt=1782380810597",
+        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fc87885e2c3a3d1292cda1.jpg?updatedAt=1782380809473",
         name:  "Event 4 — add couple name here",
         date:  "Month Year",
         venue: "Venue name, City",
-        cat:   "couple",
+        cat:   "artist",
         desc:  "Add a short story about this event here."
       },
       // ── ADD MORE PHOTOS BELOW IN THE SAME FORMAT ──
@@ -625,21 +640,21 @@
       //   name:  "Couple names",
       //   date:  "Month Year",
       //   venue: "Venue name, City",
-      //   cat:   "ceremony",   ← ceremony | reception | decor | couple
+      //   cat:   "ceremony",   ← ceremony | reception | sangeet | artist
       //   desc:  "Short story about the event."
       // },
     ];
- 
+
     let filtered = [...events];
     let curIdx = 0;
- 
+
     function filter(cat, btn) {
       document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       filtered = cat === 'all' ? [...events] : events.filter(e => e.cat === cat);
       render();
     }
- 
+
     function render() {
       const g = document.getElementById('grid');
       g.innerHTML = '';
@@ -658,14 +673,14 @@
         g.appendChild(div);
       });
     }
- 
+
     function openLb(i) {
       curIdx = i;
       updateLb();
       document.getElementById('lightbox').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
- 
+
     function updateLb() {
       const e = filtered[curIdx];
       document.getElementById('lb-img').src   = e.src;
@@ -677,34 +692,33 @@
       document.getElementById('lb-desc').textContent  = e.desc;
       document.getElementById('lb-count').textContent = (curIdx + 1) + ' of ' + filtered.length;
     }
- 
+
     function nav(dir) {
       curIdx = (curIdx + dir + filtered.length) % filtered.length;
       updateLb();
     }
- 
+
     function closeLb() {
       document.getElementById('lightbox').classList.remove('open');
       document.body.style.overflow = '';
     }
- 
+
     document.getElementById('lightbox').addEventListener('click', function(e) {
       if (e.target === this) closeLb();
     });
- 
+
     document.addEventListener('keydown', function(e) {
       if (!document.getElementById('lightbox').classList.contains('open')) return;
       if (e.key === 'ArrowRight') nav(1);
       if (e.key === 'ArrowLeft')  nav(-1);
       if (e.key === 'Escape')     closeLb();
     });
- 
+
     render();
   </script>
- 
+
 </body>
 </html>
-
     </div>
 </section>
     <!-- Instagram Section -->
