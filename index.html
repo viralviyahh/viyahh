@@ -213,6 +213,498 @@
         </div>
         <!-- End Grid -->
 
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wedding Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #faf9f7;
+      color: #2c2c2a;
+    }
+ 
+    /* ── Header ── */
+    .page-header {
+      text-align: center;
+      padding: 4rem 1rem 2.5rem;
+      border-bottom: 0.5px solid #e0ddd8;
+      margin-bottom: 2.5rem;
+    }
+ 
+    .page-header .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 12px;
+    }
+ 
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 400;
+      color: #2c2c2a;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+ 
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+ 
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: #c8c4be;
+    }
+ 
+    .divider span {
+      color: #c8a98a;
+      font-size: 18px;
+    }
+ 
+    /* ── Filters ── */
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 1rem 2rem;
+    }
+ 
+    .filters button {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 7px 20px;
+      border-radius: 30px;
+      border: 1px solid #d0ccc7;
+      background: transparent;
+      color: #888;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+ 
+    .filters button:hover {
+      border-color: #888;
+      color: #444;
+    }
+ 
+    .filters button.active {
+      background: #2c2c2a;
+      color: #faf9f7;
+      border-color: #2c2c2a;
+    }
+ 
+    /* ── Masonry gallery ── */
+    .gallery-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem 3rem;
+    }
+ 
+    .gallery-grid {
+      columns: 3;
+      column-gap: 12px;
+    }
+ 
+    @media (max-width: 768px) {
+      .gallery-grid { columns: 2; }
+    }
+ 
+    @media (max-width: 480px) {
+      .gallery-grid { columns: 1; }
+      .page-header h1 { font-size: 2.2rem; }
+    }
+ 
+    .g-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+ 
+    .g-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+ 
+    .g-item:hover img {
+      transform: scale(1.04);
+    }
+ 
+    .g-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease, background 0.3s ease;
+    }
+ 
+    .g-item:hover .g-overlay {
+      opacity: 1;
+      background: rgba(30,25,20,0.5);
+    }
+ 
+    .g-badge {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 0.5px solid rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 6px;
+      width: fit-content;
+    }
+ 
+    .g-name {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+    }
+ 
+    .g-meta {
+      color: rgba(255,255,255,0.65);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+ 
+    /* ── Lightbox ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(20,18,16,0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+ 
+    #lightbox.open { display: flex; }
+ 
+    .lb-inner {
+      display: flex;
+      background: #faf9f7;
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+    }
+ 
+    .lb-img-side {
+      flex: 0 0 58%;
+      position: relative;
+    }
+ 
+    .lb-img-side img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+ 
+    .lb-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.9);
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      transition: background 0.2s;
+    }
+ 
+    .lb-nav-btn:hover { background: #fff; }
+    .lb-prev { left: 12px; }
+    .lb-next { right: 12px; }
+ 
+    .lb-info-side {
+      flex: 1;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+ 
+    .lb-close {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #888;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+ 
+    .lb-close:hover { color: #333; }
+ 
+    .lb-event-badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: #f0ece6;
+      color: #6b5e50;
+      margin-bottom: 14px;
+      width: fit-content;
+    }
+ 
+    .lb-event-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #2c2c2a;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+ 
+    .lb-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+ 
+    .lb-detail svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+ 
+    .lb-desc {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.7;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 0.5px solid #e8e4df;
+    }
+ 
+    .lb-counter {
+      margin-top: auto;
+      padding-top: 1.5rem;
+      font-size: 11px;
+      color: #bbb;
+    }
+ 
+    @media (max-width: 640px) {
+      .lb-inner { flex-direction: column; max-height: 95vh; }
+      .lb-img-side { flex: 0 0 240px; }
+    }
+  </style>
+</head>
+<body>
+ 
+  <header class="page-header">
+    <p class="eyebrow">Our portfolio</p>
+    <h1>Moments we've crafted</h1>
+    <div class="divider"><span>&#10022;</span></div>
+  </header>
+ 
+  <div class="filters">
+    <button class="active" onclick="filter('all',this)">All events</button>
+    <button onclick="filter('ceremony',this)">Ceremony</button>
+    <button onclick="filter('reception',this)">Reception</button>
+    <button onclick="filter('decor',this)">Decor &amp; florals</button>
+    <button onclick="filter('couple',this)">Couple portraits</button>
+  </div>
+ 
+  <main class="gallery-wrap">
+    <div class="gallery-grid" id="grid"></div>
+  </main>
+ 
+  <!-- Lightbox -->
+  <div id="lightbox" role="dialog" aria-label="Photo viewer">
+    <div class="lb-inner">
+      <div class="lb-img-side">
+        <img id="lb-img" src="" alt="">
+        <button class="lb-nav-btn lb-prev" onclick="nav(-1)" aria-label="Previous">&#8249;</button>
+        <button class="lb-nav-btn lb-next" onclick="nav(1)"  aria-label="Next">&#8250;</button>
+      </div>
+      <div class="lb-info-side">
+        <button class="lb-close" onclick="closeLb()" aria-label="Close">&times;</button>
+        <span class="lb-event-badge" id="lb-cat"></span>
+        <h2 class="lb-event-name" id="lb-name"></h2>
+        <div class="lb-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span id="lb-date"></span>
+        </div>
+        <div class="lb-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <span id="lb-venue"></span>
+        </div>
+        <p class="lb-desc" id="lb-desc"></p>
+        <p class="lb-counter" id="lb-count"></p>
+      </div>
+    </div>
+  </div>
+ 
+  <script>
+    // =====================================================
+    // ADD YOUR EVENT PHOTOS HERE
+    // src      → path to your image file
+    // name     → couple names or event title
+    // date     → month & year
+    // venue    → venue name
+    // cat      → ceremony | reception | decor | couple
+    // desc     → short story about the event
+    // =====================================================
+    const events = [
+      // ── YOUR REAL PHOTOS (replace name/date/venue/desc with your actual event details) ──
+      {
+        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690c7f57ca2fb75e7918dfb2.jpg?updatedAt=1782380809432",
+        name:  "Event 1 — add couple name here",
+        date:  "Month Year",
+        venue: "Venue name, City",
+        cat:   "ceremony",
+        desc:  "Add a short story about this event here."
+      },
+      {
+        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb3620ac06b71208f373ef.jpg?updatedAt=1782380810120",
+        name:  "Event 2 — add couple name here",
+        date:  "Month Year",
+        venue: "Venue name, City",
+        cat:   "reception",
+        desc:  "Add a short story about this event here."
+      },
+      {
+        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb35facddc4f945b6a5638.jpg?updatedAt=1782380811341",
+        name:  "Event 3 — add couple name here",
+        date:  "Month Year",
+        venue: "Venue name, City",
+        cat:   "decor",
+        desc:  "Add a short story about this event here."
+      },
+      {
+        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b5c579d50c1aad68751bb.jpg?updatedAt=1782380810597",
+        name:  "Event 4 — add couple name here",
+        date:  "Month Year",
+        venue: "Venue name, City",
+        cat:   "couple",
+        desc:  "Add a short story about this event here."
+      },
+      // ── ADD MORE PHOTOS BELOW IN THE SAME FORMAT ──
+      // {
+      //   src:   "https://your-image-url-here.jpg",
+      //   name:  "Couple names",
+      //   date:  "Month Year",
+      //   venue: "Venue name, City",
+      //   cat:   "ceremony",   ← ceremony | reception | decor | couple
+      //   desc:  "Short story about the event."
+      // },
+    ];
+ 
+    let filtered = [...events];
+    let curIdx = 0;
+ 
+    function filter(cat, btn) {
+      document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filtered = cat === 'all' ? [...events] : events.filter(e => e.cat === cat);
+      render();
+    }
+ 
+    function render() {
+      const g = document.getElementById('grid');
+      g.innerHTML = '';
+      filtered.forEach((e, i) => {
+        const div = document.createElement('div');
+        div.className = 'g-item';
+        div.innerHTML = `
+          <img src="${e.src}" alt="${e.name}" loading="lazy">
+          <div class="g-overlay">
+            <span class="g-badge">${e.cat}</span>
+            <p class="g-name">${e.name}</p>
+            <p class="g-meta">${e.date} &middot; ${e.venue}</p>
+          </div>
+        `;
+        div.addEventListener('click', () => openLb(i));
+        g.appendChild(div);
+      });
+    }
+ 
+    function openLb(i) {
+      curIdx = i;
+      updateLb();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+ 
+    function updateLb() {
+      const e = filtered[curIdx];
+      document.getElementById('lb-img').src   = e.src;
+      document.getElementById('lb-img').alt   = e.name;
+      document.getElementById('lb-name').textContent  = e.name;
+      document.getElementById('lb-date').textContent  = e.date;
+      document.getElementById('lb-venue').textContent = e.venue;
+      document.getElementById('lb-cat').textContent   = e.cat;
+      document.getElementById('lb-desc').textContent  = e.desc;
+      document.getElementById('lb-count').textContent = (curIdx + 1) + ' of ' + filtered.length;
+    }
+ 
+    function nav(dir) {
+      curIdx = (curIdx + dir + filtered.length) % filtered.length;
+      updateLb();
+    }
+ 
+    function closeLb() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+ 
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLb();
+    });
+ 
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'ArrowRight') nav(1);
+      if (e.key === 'ArrowLeft')  nav(-1);
+      if (e.key === 'Escape')     closeLb();
+    });
+ 
+    render();
+  </script>
+ 
+</body>
+</html>
+
     </div>
 </section>
     <!-- Instagram Section -->
