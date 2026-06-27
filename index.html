@@ -40,41 +40,166 @@
         }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); } }
-        .wa-float { animation: pulse 2s infinite; }
-                .logo-breakout {
+        @keyframes pulse-wa { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); } }
+        .wa-float { animation: pulse-wa 2s infinite; }
+        .logo-breakout {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             left: 0.5rem;
             z-index: 100;
         }
+        .nav-slim { height: 70px; }
 
-        .nav-slim {
-            height: 70px;
+        /* ── Gallery ── */
+        .gallery-grid { columns: 3; column-gap: 12px; }
+        @media (max-width: 768px) { .gallery-grid { columns: 2; } }
+        @media (max-width: 480px) { .gallery-grid { columns: 1; } }
+        .g-item {
+            break-inside: avoid;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            cursor: pointer;
         }
+        .g-item img { width: 100%; display: block; transition: transform 0.4s ease; }
+        .g-item:hover img { transform: scale(1.04); }
+        .g-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease, background 0.3s ease;
+        }
+        .g-item:hover .g-overlay { opacity: 1; background: rgba(123,17,19,0.35); }
+        .g-zoom-icon { color: #DCA842; font-size: 2.5rem; }
+
+        /* ── Lightbox ── */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10,5,5,0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        #lightbox.open { display: flex; }
+        .lb-img-wrap {
+            position: relative;
+            max-width: 85vw;
+            max-height: 88vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #lb-img {
+            max-width: 100%;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 0 60px rgba(220,168,66,0.15);
+        }
+        .lb-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(220,168,66,0.4);
+            background: rgba(0,0,0,0.6);
+            cursor: pointer;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #DCA842;
+            transition: background 0.2s;
+        }
+        .lb-nav-btn:hover { background: rgba(123,17,19,0.8); }
+        .lb-prev { left: -56px; }
+        .lb-next { right: -56px; }
+        @media (max-width: 640px) {
+            .lb-prev { left: 6px; }
+            .lb-next { right: 6px; }
+        }
+        .lb-close {
+            position: fixed;
+            top: 18px; right: 22px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #DCA842;
+            line-height: 1;
+            z-index: 10000;
+        }
+        .lb-counter {
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            color: rgba(220,168,66,0.6);
+        }
+
+        /* ── Stats banner ── */
+        .stat-divider { width: 1px; height: 40px; background: rgba(220,168,66,0.3); }
+
+        /* ── Video section ── */
+        .video-card { position: relative; overflow: hidden; border-radius: 4px; background: #111; }
+        .video-card iframe { width: 100%; aspect-ratio: 16/9; display: block; border: 0; }
+        .video-card-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 1.5rem 1rem 0.75rem; }
+
+        /* ── Testimonials ── */
+        .testimonial-card { border-left: 3px solid #DCA842; }
+
+        /* ── Process steps ── */
+        .step-line { position: absolute; top: 2rem; left: calc(50% + 2rem); right: calc(-50% + 2rem); height: 1px; background: linear-gradient(to right, #DCA842, transparent); }
     </style>
 </head>
 <body class="bg-brand-cream font-sans text-gray-900">
 
-    <!-- Navigation -->
+    <!-- ══ NAVIGATION ══ -->
     <nav class="fixed w-full z-50 bg-white/95 shadow-sm border-b border-brand-gold/20 nav-slim flex items-center px-8">
-        
         <div class="logo-breakout">
             <a href="#home">
-                <img src="1000852021.png" alt="Viral Vyahh Logo" class="h-28 md:h-60 w-auto object-contain transition-transform hover:scale-105 duration-300">
+                <img src="1000852021.png" alt="Viral Viyahh Logo" class="h-28 md:h-60 w-auto object-contain transition-transform hover:scale-105 duration-300">
             </a>
         </div>
-        
         <div class="ml-auto hidden md:flex space-x-8 uppercase text-[11px] font-bold tracking-[0.2em] items-center">
-            <a href="#home" class="hover:text-brand-gold transition-colors">Home</a>
-            <a href="#featured" class="hover:text-brand-gold transition-colors">Our Work</a>
-            <a href="#services" class="hover:text-brand-gold transition-colors">Services</a>
+            <a href="#home"      class="hover:text-brand-gold transition-colors">Home</a>
+            <a href="#featured"  class="hover:text-brand-gold transition-colors">Our Work</a>
+            <a href="#services"  class="hover:text-brand-gold transition-colors">Services</a>
+            <a href="#films"     class="hover:text-brand-gold transition-colors">Films</a>
+            <a href="#gallery"   class="hover:text-brand-gold transition-colors">Gallery</a>
             <a href="#instagram" class="hover:text-brand-gold transition-colors">Instagram</a>
-            <a href="#contact" class="bg-brand-maroon text-brand-gold px-6 py-2 border border-brand-gold hover:bg-black transition-all shadow-md">Contact</a>
+            <a href="#contact"   class="bg-brand-maroon text-brand-gold px-6 py-2 border border-brand-gold hover:bg-black transition-all shadow-md">Contact</a>
         </div>
+        <!-- Mobile menu button -->
+        <button id="mobileMenuBtn" class="ml-auto md:hidden text-brand-maroon text-2xl">
+            <i class="ph ph-list"></i>
+        </button>
     </nav>
-    <!-- Hero -->
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden fixed top-[70px] left-0 right-0 z-40 bg-white border-b border-brand-gold/20 shadow-lg py-4 px-6 flex-col space-y-4 md:hidden">
+        <a href="#home"      onclick="closeMobile()" class="block uppercase text-[11px] font-bold tracking-widest py-2 hover:text-brand-gold">Home</a>
+        <a href="#featured"  onclick="closeMobile()" class="block uppercase text-[11px] font-bold tracking-widest py-2 hover:text-brand-gold">Our Work</a>
+        <a href="#services"  onclick="closeMobile()" class="block uppercase text-[11px] font-bold tracking-widest py-2 hover:text-brand-gold">Services</a>
+        <a href="#films"     onclick="closeMobile()" class="block uppercase text-[11px] font-bold tracking-widest py-2 hover:text-brand-gold">Films</a>
+        <a href="#gallery"   onclick="closeMobile()" class="block uppercase text-[11px] font-bold tracking-widest py-2 hover:text-brand-gold">Gallery</a>
+        <a href="#instagram" onclick="closeMobile()" class="block uppercase text-[11px] font-bold tracking-widest py-2 hover:text-brand-gold">Instagram</a>
+        <a href="#contact"   onclick="closeMobile()" class="block bg-brand-maroon text-brand-gold text-center px-6 py-3 font-bold tracking-widest text-[11px] uppercase">Contact</a>
+    </div>
+
+    <!-- ══ HERO ══ -->
     <section id="home" class="hero-bg h-screen flex items-center justify-center text-center">
         <div class="reveal px-4">
             <i class="ph-fill ph-lotus text-brand-gold text-6xl mb-4"></i>
@@ -84,14 +209,36 @@
         </div>
     </section>
 
-    <!-- Featured Section -->
+    <!-- ══ STATS BANNER ══ -->
+    <section class="bg-brand-maroon py-10">
+        <div class="max-w-4xl mx-auto px-4 flex flex-wrap items-center justify-center gap-8 md:gap-0 md:divide-x divide-brand-gold/30">
+            <div class="text-center px-10">
+                <p class="text-4xl font-serif text-brand-gold font-bold">200+</p>
+                <p class="text-xs uppercase tracking-widest text-white/70 mt-1">Events Curated</p>
+            </div>
+            <div class="text-center px-10">
+                <p class="text-4xl font-serif text-brand-gold font-bold">8+</p>
+                <p class="text-xs uppercase tracking-widest text-white/70 mt-1">Years of Excellence</p>
+            </div>
+            <div class="text-center px-10">
+                <p class="text-4xl font-serif text-brand-gold font-bold">15+</p>
+                <p class="text-xs uppercase tracking-widest text-white/70 mt-1">Cities Covered</p>
+            </div>
+            <div class="text-center px-10">
+                <p class="text-4xl font-serif text-brand-gold font-bold">100%</p>
+                <p class="text-xs uppercase tracking-widest text-white/70 mt-1">Happy Couples</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ FEATURED ══ -->
     <section id="featured" class="py-24 bg-white px-4">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-center font-serif text-4xl mb-20 text-brand-maroon uppercase tracking-widest">Featured Celebrations </h2>
+            <h2 class="text-center font-serif text-4xl mb-20 text-brand-maroon uppercase tracking-widest">Featured Celebrations</h2>
             
             <div class="grid md:grid-cols-2 gap-16 items-center mb-24 reveal">
                 <div class="relative overflow-hidden shadow-2xl border-4 border-brand-gold/10 rounded-sm">
-                    <img src="https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/oberoiudaivilas.jpg" class="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700">
+                    <img src="https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/oberoiudaivilas.jpg" class="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700" alt="Udaipur Royal Wedding">
                 </div>
                 <div class="space-y-4">
                     <span class="text-brand-gold font-bold uppercase text-xs tracking-widest">Udaipur, Rajasthan</span>
@@ -100,763 +247,349 @@
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-16 items-center flex-row-reverse reveal">
+            <div class="grid md:grid-cols-2 gap-16 items-center reveal">
                 <div class="md:order-2 relative overflow-hidden shadow-2xl border-4 border-brand-gold/10 rounded-sm">
-                    <img src="https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690c89a603d0faaa5cdc8da2.jpg?updatedAt=1782380704062"w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700">
+                    <img src="https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690c89a603d0faaa5cdc8da2.jpg?updatedAt=1782380704062" class="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700" alt="Indore Wedding">
                 </div>
-                <div class="md:text-right space-y-4">
-                    <span class="text-brand-gold font-bold uppercase text-xs tracking-widest">Indore, Madhya Pradesh </span>
-                    <h3 class="text-3xl font-serif text-brand-maroon">Oceanfront Vows</h3>
-                    <p class="text-gray-600 text-lg leading-relaxed">elegant celebration . unforgatble memories.</p>
+                <div class="md:order-1 md:text-right space-y-4">
+                    <span class="text-brand-gold font-bold uppercase text-xs tracking-widest">Indore, Madhya Pradesh</span>
+                    <h3 class="text-3xl font-serif text-brand-maroon">Elegant Celebrations</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">Elegant celebration. Unforgettable memories crafted with every detail thought through to perfection.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- ══ SERVICES ══ -->
+    <section id="services" class="py-24 bg-brand-cream border-y border-brand-gold/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl text-brand-maroon uppercase tracking-widest">Our Services</h2>
+                <div class="w-12 h-0.5 bg-brand-gold mx-auto mt-4 mb-3"></div>
+                <p class="text-brand-gold font-bold uppercase text-xs tracking-widest">Everything Your Celebration Deserves</p>
+            </div>
 
-    
-<section id="services" class="py-24 bg-brand-cream border-y border-brand-gold/20">
-    <div class="max-w-7xl mx-auto px-4">
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
 
-        <!-- Section Header -->
-        <div class="text-center mb-16 reveal">
-            <h2 class="font-serif text-4xl text-brand-maroon uppercase tracking-widest">Our Services</h2>
-            <div class="w-12 h-0.5 bg-brand-gold mx-auto mt-4 mb-3"></div>
-            <p class="text-brand-gold font-bold uppercase text-xs tracking-widest">Everything Your Celebration Deserves</p>
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
+                        <i class="ph ph-lightbulb text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3 text-brand-maroon">Lighting</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Architectural LED setups, fairy lights, gobo projections & dramatic uplighting to set the perfect mood for every function.</p>
+                </div>
+
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
+                        <i class="ph ph-speaker-high text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3 text-brand-maroon">Sound</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Crystal-clear audio systems, live band coordination & professional DJ setups for a flawless sonic experience.</p>
+                </div>
+
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
+                        <i class="ph ph-flower-lotus text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3 text-brand-maroon">Décor</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Floral mandaps, themed installations, table styling & immersive stage backdrops — we curate visual stories that reflect you.</p>
+                </div>
+
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
+                        <i class="ph ph-clipboard-text text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3 text-brand-maroon">Event Management</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">End-to-end coordination — timelines, vendor management, logistics & on-ground execution so you enjoy every moment.</p>
+                </div>
+
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
+                        <i class="ph ph-sparkle text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3 text-brand-maroon">SFX</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Cold pyro, confetti cannons, smoke machines, CO₂ jets & effects to create jaw-dropping wow moments.</p>
+                </div>
+
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
+                        <i class="ph ph-crown text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3 text-brand-maroon">Grand Entries</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Helicopter arrivals, dhol processions, drone entries & custom choreographed baraat reveals — because first impressions are forever.</p>
+                </div>
+
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
+                        <i class="ph ph-camera text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3 text-brand-maroon">Photography &amp; Film</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Cinematic wedding films & editorial photography that capture every emotion and tell your story for generations.</p>
+                </div>
+
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
+                        <i class="ph ph-map-pin text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3 text-brand-maroon">Venue Selection</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Palace buyouts, beach resorts, heritage havelis & destination venues — we find the perfect backdrop for your love story.</p>
+                </div>
+
+                <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300">
+                    <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
+                        <i class="ph ph-users-three text-3xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3 text-brand-maroon">Guest Experience</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">RSVP tracking, travel coordination, hospitality desks & personalised welcome kits — royal care for every guest.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ HOW WE WORK ══ -->
+    <section class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl text-brand-maroon uppercase tracking-widest">How We Work</h2>
+                <div class="w-12 h-0.5 bg-brand-gold mx-auto mt-4 mb-3"></div>
+                <p class="text-brand-gold font-bold uppercase text-xs tracking-widest">From Vision to Reality</p>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8 text-center reveal">
+                <div class="space-y-4">
+                    <div class="w-16 h-16 bg-brand-maroon rounded-full flex items-center justify-center mx-auto text-brand-gold font-serif text-2xl">1</div>
+                    <h5 class="font-serif text-brand-maroon text-lg">Consultation</h5>
+                    <p class="text-gray-500 text-sm leading-relaxed">We sit with you, understand your dream, your budget, and your story.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center mx-auto text-white font-serif text-2xl">2</div>
+                    <h5 class="font-serif text-brand-maroon text-lg">Planning</h5>
+                    <p class="text-gray-500 text-sm leading-relaxed">Curated mood boards, vendor shortlists, timelines & full event blueprints.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="w-16 h-16 bg-brand-maroon rounded-full flex items-center justify-center mx-auto text-brand-gold font-serif text-2xl">3</div>
+                    <h5 class="font-serif text-brand-maroon text-lg">Design</h5>
+                    <p class="text-gray-500 text-sm leading-relaxed">Décor concepts, lighting plans, and a stage design that tells your story.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center mx-auto text-white font-serif text-2xl">4</div>
+                    <h5 class="font-serif text-brand-maroon text-lg">Execution</h5>
+                    <p class="text-gray-500 text-sm leading-relaxed">Flawless on-ground delivery — you celebrate, we handle every detail.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ WHY CHOOSE US ══ -->
+    <section class="py-24 bg-brand-maroon">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl text-brand-gold uppercase tracking-widest">Why Viral Viyahh</h2>
+                <div class="w-12 h-0.5 bg-brand-gold/40 mx-auto mt-4 mb-3"></div>
+                <p class="text-white/60 font-bold uppercase text-xs tracking-widest">What Makes Us Different</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="border border-brand-gold/20 p-8 reveal hover:border-brand-gold transition-colors duration-300">
+                    <i class="ph-fill ph-star text-brand-gold text-3xl mb-4 block"></i>
+                    <h5 class="font-serif text-xl text-brand-gold mb-3">Luxury, Not a Template</h5>
+                    <p class="text-white/70 text-sm leading-relaxed">Every wedding is designed from scratch. We don't recycle concepts — your celebration is one of a kind.</p>
+                </div>
+                <div class="border border-brand-gold/20 p-8 reveal hover:border-brand-gold transition-colors duration-300">
+                    <i class="ph-fill ph-handshake text-brand-gold text-3xl mb-4 block"></i>
+                    <h5 class="font-serif text-xl text-brand-gold mb-3">Trusted Vendor Network</h5>
+                    <p class="text-white/70 text-sm leading-relaxed">Years of relationships with India's finest vendors — photographers, florists, caterers, and performers.</p>
+                </div>
+                <div class="border border-brand-gold/20 p-8 reveal hover:border-brand-gold transition-colors duration-300">
+                    <i class="ph-fill ph-clock text-brand-gold text-3xl mb-4 block"></i>
+                    <h5 class="font-serif text-xl text-brand-gold mb-3">On Time, Every Time</h5>
+                    <p class="text-white/70 text-sm leading-relaxed">Meticulous timelines and real-time coordination so every moment unfolds exactly as planned.</p>
+                </div>
+                <div class="border border-brand-gold/20 p-8 reveal hover:border-brand-gold transition-colors duration-300">
+                    <i class="ph-fill ph-globe text-brand-gold text-3xl mb-4 block"></i>
+                    <h5 class="font-serif text-xl text-brand-gold mb-3">Destination Specialists</h5>
+                    <p class="text-white/70 text-sm leading-relaxed">From Udaipur palaces to Goa beaches — we handle destination logistics so you can simply arrive and enjoy.</p>
+                </div>
+                <div class="border border-brand-gold/20 p-8 reveal hover:border-brand-gold transition-colors duration-300">
+                    <i class="ph-fill ph-currency-inr text-brand-gold text-3xl mb-4 block"></i>
+                    <h5 class="font-serif text-xl text-brand-gold mb-3">Transparent Budgeting</h5>
+                    <p class="text-white/70 text-sm leading-relaxed">No hidden costs. We work within your budget and stretch every rupee to its maximum beauty.</p>
+                </div>
+                <div class="border border-brand-gold/20 p-8 reveal hover:border-brand-gold transition-colors duration-300">
+                    <i class="ph-fill ph-heart text-brand-gold text-3xl mb-4 block"></i>
+                    <h5 class="font-serif text-xl text-brand-gold mb-3">We Care Deeply</h5>
+                    <p class="text-white/70 text-sm leading-relaxed">Your wedding day is not a project to us. It's a privilege. We pour heart and soul into every detail.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ WEDDING FILMS / VIDEO REEL ══ -->
+    <section id="films" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl text-brand-maroon uppercase tracking-widest">Wedding Films</h2>
+                <div class="w-12 h-0.5 bg-brand-gold mx-auto mt-4 mb-3"></div>
+                <p class="text-brand-gold font-bold uppercase text-xs tracking-widest">Cinematic Stories We've Told</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 reveal">
+
+                <!-- Video 1 – replace src with your YouTube/Vimeo embed URL -->
+                <div class="video-card shadow-xl">
+                    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:4px;background:#111;">
+                        <iframe 
+                            src="https://www.youtube.com/embed/a9__D53WsMs" 
+                            title="Wedding Film 1"
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="pt-4 pb-2">
+                        <p class="font-serif text-brand-maroon text-lg">A Royal Affair</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Cinematic Wedding Film</p>
+                    </div>
+                </div>
+
+                <!-- Video 2 – replace src with your YouTube/Vimeo embed URL -->
+                <div class="video-card shadow-xl">
+                    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:4px;background:#111;">
+                        <iframe 
+                            src="https://www.youtube.com/embed/NpEaa2P7qZI" 
+                            title="Wedding Film 2"
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="pt-4 pb-2">
+                        <p class="font-serif text-brand-maroon text-lg">Timeless Vows</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Cinematic Wedding Film</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="text-center mt-10 text-xs text-gray-400 tracking-widest uppercase reveal">
+                Replace the video links above with your own YouTube or Vimeo embed URLs
+            </p>
+        </div>
+    </section>
+
+    <!-- ══ GALLERY ══ -->
+    <section id="gallery" class="py-24 bg-brand-cream">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12 reveal">
+                <h2 class="font-serif text-4xl text-brand-maroon uppercase tracking-widest">Our Gallery</h2>
+                <div class="w-12 h-0.5 bg-brand-gold mx-auto mt-4 mb-3"></div>
+                <p class="text-brand-gold font-bold uppercase text-xs tracking-widest">Moments We've Crafted</p>
+            </div>
+
+            <!-- Filter buttons -->
+            <div class="flex flex-wrap gap-2 justify-center mb-10 reveal">
+                <button class="gfilter-btn active px-5 py-2 rounded-full border border-brand-maroon bg-brand-maroon text-brand-gold text-[11px] uppercase tracking-widest font-bold transition-all" onclick="gFilter('all',this)">All</button>
+                <button class="gfilter-btn px-5 py-2 rounded-full border border-gray-300 text-gray-500 text-[11px] uppercase tracking-widest font-bold transition-all hover:border-brand-maroon hover:text-brand-maroon" onclick="gFilter('ceremony',this)">Ceremony</button>
+                <button class="gfilter-btn px-5 py-2 rounded-full border border-gray-300 text-gray-500 text-[11px] uppercase tracking-widest font-bold transition-all hover:border-brand-maroon hover:text-brand-maroon" onclick="gFilter('reception',this)">Reception</button>
+                <button class="gfilter-btn px-5 py-2 rounded-full border border-gray-300 text-gray-500 text-[11px] uppercase tracking-widest font-bold transition-all hover:border-brand-maroon hover:text-brand-maroon" onclick="gFilter('carnival',this)">Carnival &amp; Sangeet</button>
+                <button class="gfilter-btn px-5 py-2 rounded-full border border-gray-300 text-gray-500 text-[11px] uppercase tracking-widest font-bold transition-all hover:border-brand-maroon hover:text-brand-maroon" onclick="gFilter('couple',this)">Couple Portraits</button>
+            </div>
+
+            <!-- Masonry grid -->
+            <div class="gallery-grid" id="galleryGrid"></div>
         </div>
 
-        <!-- Services Grid -->
-        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
-
-            <!-- 1. Lighting -->
-            <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300">
-                <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
-                    <i class="ph ph-lightbulb text-3xl"></i>
-                </div>
-                <h4 class="font-serif text-xl mb-3 text-brand-maroon">Lighting</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">Architectural LED setups, fairy lights, gobo projections & dramatic uplighting to set the perfect mood for every function.</p>
+        <!-- Lightbox (clean — no text overlay) -->
+        <div id="lightbox" role="dialog" aria-label="Photo viewer">
+            <button class="lb-close" onclick="closeLb()" aria-label="Close">&times;</button>
+            <div class="lb-img-wrap">
+                <img id="lb-img" src="" alt="">
+                <button class="lb-nav-btn lb-prev" onclick="lbNav(-1)" aria-label="Previous">&#8249;</button>
+                <button class="lb-nav-btn lb-next" onclick="lbNav(1)"  aria-label="Next">&#8250;</button>
             </div>
-
-            <!-- 2. Sound -->
-            <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300" style="transition-delay: 50ms;">
-                <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
-                    <i class="ph ph-speaker-high text-3xl"></i>
-                </div>
-                <h4 class="font-serif text-xl mb-3 text-brand-maroon">Sound</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">Crystal-clear audio systems, live band coordination & professional DJ setups for a flawless sonic experience.</p>
-            </div>
-
-            <!-- 3. Decor -->
-            <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300" style="transition-delay: 100ms;">
-                <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
-                    <i class="ph ph-flower-lotus text-3xl"></i>
-                </div>
-                <h4 class="font-serif text-xl mb-3 text-brand-maroon">Décor</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">Floral mandaps, themed installations, table styling & immersive stage backdrops — we curate visual stories that reflect you.</p>
-            </div>
-
-            <!-- 4. Event Management -->
-            <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300" style="transition-delay: 150ms;">
-                <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
-                    <i class="ph ph-clipboard-text text-3xl"></i>
-                </div>
-                <h4 class="font-serif text-xl mb-3 text-brand-maroon">Event Management</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">End-to-end coordination — timelines, vendor management, logistics & on-ground execution so you enjoy every moment.</p>
-            </div>
-
-            <!-- 5. SFX -->
-            <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300" style="transition-delay: 200ms;">
-                <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
-                    <i class="ph ph-sparkle text-3xl"></i>
-                </div>
-                <h4 class="font-serif text-xl mb-3 text-brand-maroon">SFX</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">Cold pyro, confetti cannons, smoke machines, CO₂ jets & ceffects to create jaw-dropping wow moments.</p>
-            </div>
-
-            <!-- 6. Grand Entries -->
-            <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300" style="transition-delay: 250ms;">
-                <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
-                    <i class="ph ph-crown text-3xl"></i>
-                </div>
-                <h4 class="font-serif text-xl mb-3 text-brand-maroon">Grand Entries</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">Helicopter arrivals, dhol processions, drone entries & custom choreographed baraat reveals — because first impressions are forever.</p>
-            </div>
-
-            <!-- 7. Photography & Film -->
-            <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300" style="transition-delay: 300ms;">
-                <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
-                    <i class="ph ph-camera text-3xl"></i>
-                </div>
-                <h4 class="font-serif text-xl mb-3 text-brand-maroon">Photography &amp; Film</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">Cinematic wedding films & editorial photography that capture every emotion and tell your story for generations.</p>
-            </div>
-
-            <!-- 8. Venue Selection -->
-            <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300" style="transition-delay: 350ms;">
-                <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
-                    <i class="ph ph-map-pin text-3xl"></i>
-                </div>
-                <h4 class="font-serif text-xl mb-3 text-brand-maroon">Venue Selection</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">Palace buyouts, beach resorts, heritage havelis & destination venues — we find the perfect backdrop for your love story.</p>
-            </div>
-
-            <!-- 9. Guest Management -->
-            <div class="bg-white p-10 text-center border border-brand-gold/20 shadow-lg reveal group hover:border-brand-gold transition-all duration-300" style="transition-delay: 400ms;">
-                <div class="w-16 h-16 bg-brand-maroon text-brand-gold flex items-center justify-center mx-auto mb-6 rounded-full group-hover:scale-110 transition-transform duration-300">
-                    <i class="ph ph-users-three text-3xl"></i>
-                </div>
-                <h4 class="font-serif text-xl mb-3 text-brand-maroon">Guest Experience</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">RSVP tracking, travel coordination, hospitality desks & personalised welcome kits — royal care for every guest.</p>
-            </div>
-
+            <p class="lb-counter" id="lb-count"></p>
         </div>
-        <!-- End Grid -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wedding Gallery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    </section>
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #faf9f7;
-      color: #2c2c2a;
-    }
-
-    /* ── Header ── */
-    .page-header {
-      text-align: center;
-      padding: 4rem 1rem 2.5rem;
-      border-bottom: 0.5px solid #e0ddd8;
-      margin-bottom: 2.5rem;
-    }
-
-    .page-header .eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: 12px;
-    }
-
-    .page-header h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 400;
-      color: #2c2c2a;
-      letter-spacing: 0.02em;
-      margin-bottom: 1rem;
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      max-width: 280px;
-      margin: 0 auto;
-    }
-
-    .divider::before, .divider::after {
-      content: '';
-      flex: 1;
-      height: 0.5px;
-      background: #c8c4be;
-    }
-
-    .divider span {
-      color: #c8a98a;
-      font-size: 18px;
-    }
-
-    /* ── Filters ── */
-    .filters {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 0 1rem 2rem;
-    }
-
-    .filters button {
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 7px 20px;
-      border-radius: 30px;
-      border: 1px solid #d0ccc7;
-      background: transparent;
-      color: #888;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .filters button:hover {
-      border-color: #888;
-      color: #444;
-    }
-
-    .filters button.active {
-      background: #2c2c2a;
-      color: #faf9f7;
-      border-color: #2c2c2a;
-    }
-
-    /* ── Masonry gallery ── */
-    .gallery-wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem 3rem;
-    }
-
-    .gallery-grid {
-      columns: 3;
-      column-gap: 12px;
-    }
-
-    @media (max-width: 768px) {
-      .gallery-grid { columns: 2; }
-    }
-
-    @media (max-width: 480px) {
-      .gallery-grid { columns: 1; }
-      .page-header h1 { font-size: 2.2rem; }
-    }
-
-    .g-item {
-      break-inside: avoid;
-      margin-bottom: 12px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .g-item img {
-      width: 100%;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .g-item:hover img {
-      transform: scale(1.04);
-    }
-
-    .g-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 1rem;
-      opacity: 0;
-      transition: opacity 0.3s ease, background 0.3s ease;
-    }
-
-    .g-item:hover .g-overlay {
-      opacity: 1;
-      background: rgba(30,25,20,0.5);
-    }
-
-    .g-badge {
-      display: inline-block;
-      font-size: 9px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 20px;
-      border: 0.5px solid rgba(255,255,255,0.5);
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 6px;
-      width: fit-content;
-    }
-
-    .g-name {
-      color: #fff;
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .g-meta {
-      color: rgba(255,255,255,0.65);
-      font-size: 11px;
-      margin-top: 3px;
-    }
-
-    /* ── Lightbox ── */
-    #lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(20,18,16,0.92);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    #lightbox.open { display: flex; }
-
-    .lb-inner {
-      display: flex;
-      background: #faf9f7;
-      border-radius: 12px;
-      overflow: hidden;
-      max-width: 900px;
-      width: 100%;
-      max-height: 90vh;
-    }
-
-    .lb-img-side {
-      flex: 0 0 58%;
-      position: relative;
-    }
-
-    .lb-img-side img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .lb-nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(255,255,255,0.9);
-      cursor: pointer;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #333;
-      transition: background 0.2s;
-    }
-
-    .lb-nav-btn:hover { background: #fff; }
-    .lb-prev { left: 12px; }
-    .lb-next { right: 12px; }
-
-    .lb-info-side {
-      flex: 1;
-      padding: 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-    }
-
-    .lb-close {
-      align-self: flex-end;
-      background: none;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      color: #888;
-      margin-bottom: 1rem;
-      line-height: 1;
-    }
-
-    .lb-close:hover { color: #333; }
-
-    .lb-event-badge {
-      display: inline-block;
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: #f0ece6;
-      color: #6b5e50;
-      margin-bottom: 14px;
-      width: fit-content;
-    }
-
-    .lb-event-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: #2c2c2a;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-    }
-
-    .lb-detail {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 12px;
-      color: #888;
-      margin-bottom: 8px;
-    }
-
-    .lb-detail svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .lb-desc {
-      font-size: 13px;
-      color: #555;
-      line-height: 1.7;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 0.5px solid #e8e4df;
-    }
-
-    .lb-counter {
-      margin-top: auto;
-      padding-top: 1.5rem;
-      font-size: 11px;
-      color: #bbb;
-    }
-
-    @media (max-width: 640px) {
-      .lb-inner { flex-direction: column; max-height: 95vh; }
-      .lb-img-side { flex: 0 0 240px; }
-    }
-  </style>
-</head>
-<body>
-
-  <header class="page-header">
-    <p class="eyebrow">Our portfolio</p>
-    <h1>Moments we've crafted</h1>
-    <div class="divider"><span>&#10022;</span></div>
-  </header>
-
-  <div class="filters">
-    <button class="active" onclick="filter('all',this)">All events</button>
-    <button onclick="filter('ceremony',this)">Ceremony</button>
-    <button onclick="filter('reception',this)">Reception</button>
-    <button onclick="filter('carnival',this)">carnival&amp; sangeet</button>
-    <button onclick="filter('couple',this)">Couple portraits</button>
-  </div>
-
-  <main class="gallery-wrap">
-    <div class="gallery-grid" id="grid"></div>
-  </main>
-
-  <!-- Lightbox -->
-  <div id="lightbox" role="dialog" aria-label="Photo viewer">
-    <div class="lb-inner">
-      <div class="lb-img-side">
-        <img id="lb-img" src="" alt="">
-        <button class="lb-nav-btn lb-prev" onclick="nav(-1)" aria-label="Previous">&#8249;</button>
-        <button class="lb-nav-btn lb-next" onclick="nav(1)"  aria-label="Next">&#8250;</button>
-      </div>
-      <div class="lb-info-side">
-        <button class="lb-close" onclick="closeLb()" aria-label="Close">&times;</button>
-        <span class="lb-event-badge" id="lb-cat"></span>
-        <h2 class="lb-event-name" id="lb-name"></h2>
-        <div class="lb-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <span id="lb-date"></span>
+    <!-- ══ TESTIMONIALS ══ -->
+    <section class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl text-brand-maroon uppercase tracking-widest">What Couples Say</h2>
+                <div class="w-12 h-0.5 bg-brand-gold mx-auto mt-4 mb-3"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="testimonial-card bg-brand-cream p-8 reveal">
+                    <div class="flex gap-1 mb-4">
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                    </div>
+                    <p class="text-gray-600 italic leading-relaxed mb-6">"Viral Viyahh turned our dream wedding into reality. Every detail was perfect — from the mandap décor to the grand entry. We didn't have to worry about a single thing on our big day!"</p>
+                    <div>
+                        <p class="font-bold text-brand-maroon text-sm">Priya &amp; Rahul</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Married in Udaipur</p>
+                    </div>
+                </div>
+                <div class="testimonial-card bg-brand-cream p-8 reveal">
+                    <div class="flex gap-1 mb-4">
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                    </div>
+                    <p class="text-gray-600 italic leading-relaxed mb-6">"The team at Viral Viyahh went above and beyond. Our sangeet night was absolutely breathtaking. Guests are still talking about it months later!"</p>
+                    <div>
+                        <p class="font-bold text-brand-maroon text-sm">Sneha &amp; Arjun</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Married in Indore</p>
+                    </div>
+                </div>
+                <div class="testimonial-card bg-brand-cream p-8 reveal">
+                    <div class="flex gap-1 mb-4">
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                    </div>
+                    <p class="text-gray-600 italic leading-relaxed mb-6">"From the very first call to the last dance, Viral Viyahh was professional, creative, and warm. They understood exactly what we envisioned and delivered it flawlessly."</p>
+                    <div>
+                        <p class="font-bold text-brand-maroon text-sm">Ananya &amp; Vikram</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Destination Wedding, Goa</p>
+                    </div>
+                </div>
+                <div class="testimonial-card bg-brand-cream p-8 reveal">
+                    <div class="flex gap-1 mb-4">
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                        <i class="ph-fill ph-star text-brand-gold"></i>
+                    </div>
+                    <p class="text-gray-600 italic leading-relaxed mb-6">"The décor was beyond our imagination. The cold pyro, the drone entry, the floral mandap — everything screamed royalty. Viral Viyahh is truly in a league of their own."</p>
+                    <div>
+                        <p class="font-bold text-brand-maroon text-sm">Meera &amp; Rohan</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Married in Jaipur</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="lb-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span id="lb-venue"></span>
-        </div>
-        <p class="lb-desc" id="lb-desc"></p>
-        <p class="lb-counter" id="lb-count"></p>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <script>
-    // =====================================================
-    // ADD YOUR EVENT PHOTOS HERE
-    // src      → path to your image file
-    // name     → couple names or event title
-    // date     → month & year
-    // venue    → venue name
-    // cat      → ceremony | reception | carnival | couple
-    // desc     → short story about the event
-    // =====================================================
-    const events = [
-      // ── YOUR REAL PHOTOS (replace name/date/venue/desc with your actual event details) ──
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fc61801c2ff73b123bf16d.jpg?updatedAt=1782380823766",
-        name:  "Event 1 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "ceremony",
-        desc:  "Add a short story about this event here."
-      },
-       {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/images.jpg?updatedAt=1782386629390",
-        name:  "Event 1 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "ceremony",
-        desc:  "Add a short story about this event here."
-      },  
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690c7f57ca2fb75e7918dfb2.jpg?updatedAt=1782380809432",
-        name:  "Event 1 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "ceremony",
-        desc:  "Add a short story about this event here."
-      },
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b445a14b2bcae6a28a2ea.jpg?updatedAt=1782380703325",
-        name:  "Event 1 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "ceremony",
-        desc:  "Add a short story about this event here."
-      },
-
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/6a043ad028a3a409b1fb9edb.jpg?updatedAt=1782380819324",
-        name:  "Event 2 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "reception",
-        desc:  "Add a short story about this event here."
-      },
-       {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b5c5cae026f000e3f9ff4.jpg?updatedAt=1782380798047",
-        name:  "Event 2 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "reception",
-        desc:  "Add a short story about this event here."
-      },
-       {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b5c579d50c1aad68751bb.jpg?updatedAt=1782380810597",
-        name:  "Event 2 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "reception",
-        desc:  "Add a short story about this event here."
-      },
-       {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fbe44754cd02a97ac7e0ee.jpg",
-        name:  "Event 2 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "reception",
-        desc:  "Add a short story about this event here."
-      },  
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690c3ff13bd520f263678b3f.jpg?updatedAt=1782380702282",
-        name:  "Event 2 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "reception",
-        desc:  "Add a short story about this event here."
-      },  
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fc78b8617e1d6ca26f5ba0.jpg?updatedAt=1782380700711",
-        name:  "Event 3 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "carnival",
-        desc:  "Add a short story about this event here."
-      },
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69463832a7d25376bd9459bf.jpg?updatedAt=1782380702204",
-        name:  "Event 3 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "carnival",
-        desc:  "Add a short story about this event here."
-      },
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb35facddc4f945b6a5638.jpg?updatedAt=1782380811341",
-        name:  "Event 3 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "carnival",
-        desc:  "Add a short story about this event here."
-      }, 
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fc87885e2c3a3d1292cda1.jpg?updatedAt=1782380809473",
-        name:  "Event 3 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "carnival",
-        desc:  "Add a short story about this event here."
-      },
-        {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fc796f99bb8b5b90352d18.jpg?updatedAt=1782380703727",
-        name:  "Event 3 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "carnival",
-        desc:  "Add a short story about this event here."
-      },
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb3620ac06b71208f373ef.jpg?updatedAt=1782380810120",
-        name:  "Event 3 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "carnival",
-        desc:  "Add a short story about this event here."
-      },
-        {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb37fda0263f342a010a53.jpg",
-        name:  "Event 3 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "carnival",
-        desc:  "Add a short story about this event here."
-      },
-         {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb363b5706a327d3a8f27a.jpg",
-        name:  "Event 3 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "carnival",
-        desc:  "Add a short story about this event here."
-      },
- 
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b5c5462eb55349758ef82.jpg?updatedAt=1782380805764",
-        name:  "Event 3 — add couple name here",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "carnival",
-        desc:  "Add a short story about this event here."
-      },
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/IMG_7909.JPG",
-        name:  "Event 4 — HARSH AND SAMIKSHA ",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "couple",
-        desc:  "Add a short story about this event here."
-      },  
-      {
-        src:   "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/4U8A3771.JPG",
-        name:  "Event 4 — ABHIJEET AND HIMANSHI ",
-        date:  "Month Year",
-        venue: "Venue name, City",
-        cat:   "couple",
-        desc:  "Add a short story about this event here."
-      },
-      // ── ADD MORE PHOTOS BELOW IN THE SAME FORMAT ──
-      // {
-      //   src:   "https://your-image-url-here.jpg",
-      //   name:  "Couple names",
-      //   date:  "Month Year",
-      //   venue: "Venue name, City",
-      //   cat:   "ceremony",   ← ceremony | reception | carnival | couple
-      //   desc:  "Short story about the event."
-      // },
-    ];
-
-    let filtered = [...events];
-    let curIdx = 0;
-
-    function filter(cat, btn) {
-      document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filtered = cat === 'all' ? [...events] : events.filter(e => e.cat === cat);
-      render();
-    }
-
-    function render() {
-      const g = document.getElementById('grid');
-      g.innerHTML = '';
-      filtered.forEach((e, i) => {
-        const div = document.createElement('div');
-        div.className = 'g-item';
-        div.innerHTML = `
-          <img src="${e.src}" alt="${e.name}" loading="lazy">
-          <div class="g-overlay">
-            <span class="g-badge">${e.cat}</span>
-            <p class="g-name">${e.name}</p>
-            <p class="g-meta">${e.date} &middot; ${e.venue}</p>
-          </div>
-        `;
-        div.addEventListener('click', () => openLb(i));
-        g.appendChild(div);
-      });
-    }
-
-    function openLb(i) {
-      curIdx = i;
-      updateLb();
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function updateLb() {
-      const e = filtered[curIdx];
-      document.getElementById('lb-img').src   = e.src;
-      document.getElementById('lb-img').alt   = e.name;
-      document.getElementById('lb-name').textContent  = e.name;
-      document.getElementById('lb-date').textContent  = e.date;
-      document.getElementById('lb-venue').textContent = e.venue;
-      document.getElementById('lb-cat').textContent   = e.cat;
-      document.getElementById('lb-desc').textContent  = e.desc;
-      document.getElementById('lb-count').textContent = (curIdx + 1) + ' of ' + filtered.length;
-    }
-
-    function nav(dir) {
-      curIdx = (curIdx + dir + filtered.length) % filtered.length;
-      updateLb();
-    }
-
-    function closeLb() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.getElementById('lightbox').addEventListener('click', function(e) {
-      if (e.target === this) closeLb();
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (!document.getElementById('lightbox').classList.contains('open')) return;
-      if (e.key === 'ArrowRight') nav(1);
-      if (e.key === 'ArrowLeft')  nav(-1);
-      if (e.key === 'Escape')     closeLb();
-    });
-
-    render();
-  </script>
-
-</body>
-</html>
-        
-    </div>
-</section>
-    <!-- Instagram Section -->
-    <!-- Instagram Section with your specific code -->
+    <!-- ══ INSTAGRAM ══ -->
     <section id="instagram" class="py-24 bg-brand-cream">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-12 reveal">
                 <h2 class="font-serif text-4xl text-brand-maroon uppercase tracking-widest">Instagram</h2>
                 <p class="text-brand-gold font-bold mt-2 tracking-widest">@viral.viyahh.events</p>
             </div>
-
-            <!-- YOUR SPECIFIC PIECE OF CODE INTEGRATED AND STYLED -->
-            <div class="insta-embed-card reveal">
-                <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px;">
-                    
-                    <!-- The Embed Column -->
-                    <div class="overflow-hidden border border-gray-100 rounded-sm">
-                        <iframe src="https://www.instagram.com/viral.viyahh.events/embed" width="100%" height="450" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-                    </div>
-
+            <div class="reveal">
+                <div class="overflow-hidden border border-gray-100 rounded-sm max-w-xl mx-auto">
+                    <iframe src="https://www.instagram.com/viral.viyahh.events/embed" width="100%" height="450" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
                 </div>
             </div>
-            
             <div class="mt-12 text-center reveal">
                 <a href="https://instagram.com/viral.viyahh.events" target="_blank" class="text-brand-maroon border-b-2 border-brand-gold pb-1 font-bold uppercase tracking-widest text-sm hover:text-brand-gold transition-colors">
                     Visit our full profile
@@ -865,7 +598,7 @@
         </div>
     </section>
 
-    <!-- Contact -->
+    <!-- ══ CONTACT ══ -->
     <section id="contact" class="py-24 bg-brand-maroon text-brand-cream">
         <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-16 items-center">
             <div class="reveal">
@@ -876,33 +609,227 @@
                     <p class="flex items-center gap-3"><i class="ph-fill ph-phone-call text-brand-gold text-2xl"></i> 9893015485</p>
                 </div>
             </div>
+
+            <!-- Contact form → Google Sheets -->
             <div class="bg-brand-cream p-8 text-gray-900 border-t-8 border-brand-gold reveal shadow-2xl">
-                <form action="#" class="space-y-4">
-                    <input type="text" placeholder="Name" class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon">
-                    <input type="tel" placeholder="WhatsApp Number" class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon">
-                    <textarea placeholder="Tell us your vision..." class="w-full p-4 border border-gray-200 h-32 outline-none focus:border-brand-maroon"></textarea>
-                    <button class="w-full bg-brand-maroon text-brand-gold font-bold py-4 uppercase tracking-widest hover:bg-black transition-colors">Send Inquiry</button>
+
+                <form id="inquiryForm" class="space-y-4">
+                    <input type="text" id="formName" placeholder="Your Name" required
+                        class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon bg-white text-gray-900">
+                    <input type="tel" id="formPhone" placeholder="WhatsApp Number" required
+                        class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon bg-white text-gray-900">
+                    <input type="text" id="formDate" placeholder="Event Date (approx.)"
+                        class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon bg-white text-gray-900">
+                    <textarea id="formMessage" placeholder="Tell us your vision..." rows="4"
+                        class="w-full p-4 border border-gray-200 outline-none focus:border-brand-maroon bg-white text-gray-900 resize-none"></textarea>
+
+                    <button type="submit" id="submitBtn"
+                        class="w-full bg-brand-maroon text-brand-gold font-bold py-4 uppercase tracking-widest hover:bg-black transition-colors flex items-center justify-center gap-3">
+                        <span id="btnText">Send Inquiry</span>
+                        <svg id="btnSpinner" class="hidden animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                        </svg>
+                    </button>
                 </form>
+
+                <!-- Success state -->
+                <div id="successMsg" class="hidden text-center py-10 space-y-4">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                        <i class="ph-fill ph-check-circle text-green-600 text-4xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-brand-maroon">Inquiry Received!</h3>
+                    <p class="text-gray-600 text-sm">Thank you! We'll reach out on WhatsApp very soon.</p>
+                    <button onclick="resetForm()" class="mt-2 text-sm text-brand-maroon underline underline-offset-2 hover:text-black">
+                        Send another inquiry
+                    </button>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- WhatsApp -->
+    <!-- Footer -->
+    <footer class="bg-black text-white/40 py-6 text-center text-xs tracking-widest uppercase">
+        © 2025 Viral Viyahh Events &nbsp;·&nbsp; Crafted with ♥ in Indore
+    </footer>
+
+    <!-- WhatsApp float -->
     <a href="https://wa.me/9893015485" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-5 rounded-full wa-float shadow-2xl z-50">
         <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
     </a>
 
+    <!-- ══════════════════════════════════
+         GALLERY SCRIPT
+    ══════════════════════════════════ -->
     <script>
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
-            }
+        const photos = [
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fc61801c2ff73b123bf16d.jpg?updatedAt=1782380823766", cat: "ceremony" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/images.jpg?updatedAt=1782386629390",                   cat: "ceremony" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690c7f57ca2fb75e7918dfb2.jpg?updatedAt=1782380809432", cat: "ceremony" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b445a14b2bcae6a28a2ea.jpg?updatedAt=1782380703325", cat: "ceremony" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/6a043ad028a3a409b1fb9edb.jpg?updatedAt=1782380819324", cat: "reception" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b5c5cae026f000e3f9ff4.jpg?updatedAt=1782380798047", cat: "reception" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b5c579d50c1aad68751bb.jpg?updatedAt=1782380810597", cat: "reception" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fbe44754cd02a97ac7e0ee.jpg",                         cat: "reception" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690c3ff13bd520f263678b3f.jpg?updatedAt=1782380702282", cat: "reception" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fc78b8617e1d6ca26f5ba0.jpg?updatedAt=1782380700711", cat: "carnival" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69463832a7d25376bd9459bf.jpg?updatedAt=1782380702204", cat: "carnival" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb35facddc4f945b6a5638.jpg?updatedAt=1782380811341", cat: "carnival" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fc87885e2c3a3d1292cda1.jpg?updatedAt=1782380809473", cat: "carnival" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fc796f99bb8b5b90352d18.jpg?updatedAt=1782380703727", cat: "carnival" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb3620ac06b71208f373ef.jpg?updatedAt=1782380810120", cat: "carnival" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb37fda0263f342a010a53.jpg",                         cat: "carnival" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/69fb363b5706a327d3a8f27a.jpg",                         cat: "carnival" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/690b5c5462eb55349758ef82.jpg?updatedAt=1782380805764", cat: "carnival" },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/IMG_7909.JPG",                                         cat: "couple"   },
+            { src: "https://ik.imagekit.io/rh00kvmq7/viral%20viyahh/4U8A3771.JPG",                                         cat: "couple"   },
+        ];
+
+        let gFiltered = [...photos];
+        let lbIdx = 0;
+
+        function gFilter(cat, btn) {
+            document.querySelectorAll('.gfilter-btn').forEach(b => {
+                b.classList.remove('active', 'bg-brand-maroon', 'text-brand-gold', 'border-brand-maroon');
+                b.classList.add('border-gray-300', 'text-gray-500');
+            });
+            btn.classList.add('active', 'bg-brand-maroon', 'text-brand-gold', 'border-brand-maroon');
+            btn.classList.remove('border-gray-300', 'text-gray-500');
+            gFiltered = cat === 'all' ? [...photos] : photos.filter(p => p.cat === cat);
+            renderGallery();
         }
-        window.addEventListener("scroll", reveal);
-        reveal();
+
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            gFiltered.forEach((p, i) => {
+                const div = document.createElement('div');
+                div.className = 'g-item';
+                div.innerHTML = `
+                    <img src="${p.src}" alt="Wedding photo" loading="lazy">
+                    <div class="g-overlay">
+                        <i class="ph ph-magnifying-glass-plus g-zoom-icon"></i>
+                    </div>
+                `;
+                div.addEventListener('click', () => openLb(i));
+                grid.appendChild(div);
+            });
+        }
+
+        function openLb(i) {
+            lbIdx = i;
+            updateLb();
+            document.getElementById('lightbox').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateLb() {
+            document.getElementById('lb-img').src = gFiltered[lbIdx].src;
+            document.getElementById('lb-count').textContent = (lbIdx + 1) + ' / ' + gFiltered.length;
+        }
+
+        function lbNav(dir) {
+            lbIdx = (lbIdx + dir + gFiltered.length) % gFiltered.length;
+            updateLb();
+        }
+
+        function closeLb() {
+            document.getElementById('lightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) closeLb();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightbox').classList.contains('open')) return;
+            if (e.key === 'ArrowRight') lbNav(1);
+            if (e.key === 'ArrowLeft')  lbNav(-1);
+            if (e.key === 'Escape')     closeLb();
+        });
+
+        renderGallery();
     </script>
+
+    <!-- ══════════════════════════════════
+         CONTACT FORM → GOOGLE SHEETS
+    ══════════════════════════════════ -->
+    <script>
+        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycby43jPyO5irVA19DUXXlm87fC8xDTIcyJ_FVHx-GouOkL-uXtLI5OSkR0AENyKAW2it/exec';
+
+        document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const btn     = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('btnSpinner');
+            btn.disabled  = true;
+            btnText.textContent = 'Sending...';
+            spinner.classList.remove('hidden');
+
+            const payload = {
+                name:    document.getElementById('formName').value.trim(),
+                phone:   document.getElementById('formPhone').value.trim(),
+                date:    document.getElementById('formDate').value.trim(),
+                message: document.getElementById('formMessage').value.trim()
+            };
+
+            fetch(SHEETS_URL, {
+                method:  'POST',
+                mode:    'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify(payload)
+            })
+            .then(() => {
+                document.getElementById('inquiryForm').classList.add('hidden');
+                document.getElementById('successMsg').classList.remove('hidden');
+            })
+            .catch(() => {
+                alert('Something went wrong. Please WhatsApp us at +91 98930 15485.');
+                btnText.textContent = 'Send Inquiry';
+                spinner.classList.add('hidden');
+                btn.disabled = false;
+            });
+        });
+
+        function resetForm() {
+            document.getElementById('inquiryForm').reset();
+            document.getElementById('inquiryForm').classList.remove('hidden');
+            document.getElementById('successMsg').classList.add('hidden');
+            document.getElementById('btnText').textContent = 'Send Inquiry';
+            document.getElementById('btnSpinner').classList.add('hidden');
+            document.getElementById('submitBtn').disabled = false;
+        }
+    </script>
+
+    <!-- ══════════════════════════════════
+         MOBILE MENU + SCROLL REVEAL
+    ══════════════════════════════════ -->
+    <script>
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+
+        function closeMobile() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.add('hidden');
+            menu.classList.remove('flex');
+        }
+
+        function revealOnScroll() {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+    </script>
+
 </body>
 </html>
